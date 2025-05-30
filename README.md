@@ -62,7 +62,7 @@ Use Task Scheduler to run wscript.exe with launch_hidden.vbs file at system star
   - In Add arguments: "C:\ffmpeg-stream\launch_hidden.vbs"
 
 
-## Using NSSM (Service Wrapper)
+## Using NSSM (Service Wrapper) to Automate Restart
 
 ```
 # download nssm
