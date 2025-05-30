@@ -2,9 +2,9 @@
 
 ## Using bat and task scheduler
 🎬 How it works:
-	•	Streams your webcam to YouTube using FFmpeg
-	•	Automatically restarts if FFmpeg fails or exits
-	•	Includes a short 5-second delay between retries
+*	Streams your webcam to YouTube using FFmpeg
+*	Automatically restarts if FFmpeg fails or exits
+*	Includes a short 5-second delay between retries
 
 ⸻
 
