@@ -11,12 +11,12 @@ https://ffmpeg.org/download.html
 https://nssm.cc/download
 
 
-## FFmpeg Command
+## Run FFmpeg Command
 
 stream2youtube.ps1
 
 
-## Create windows service
+## Create windows service to start on restart and crash
 
 Run as Administrator
 C:\nssm\win64\nssm.exe install stream2youtube
