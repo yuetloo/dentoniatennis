@@ -13,7 +13,10 @@ https://nssm.cc/download
 
 ## Run FFmpeg Command
 
-stream2youtube.ps1
+Run script: stream2youtube.ps1
+
+*Note: update the script with your IP, credentials and youtube stream key*
+- YouTube stream key can be found on https://studio.youtube.com
 
 
 ## Create windows service to start on restart and crash
