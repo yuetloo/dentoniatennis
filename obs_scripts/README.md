@@ -4,17 +4,15 @@
 
 ## ✅ Download `obs-cmd`:
 
-### Option 1: **Precompiled Binary (Recommended if available)**
-
 1. Go to:
-   👉 [https://github.com/HiBoPC/obs-cmd/releases](https://github.com/HiBoPC/obs-cmd/releases)
+   👉 [https://github.com/grigio/obs-cmd/releases](https://github.com/grigio/obs-cmd/releases)
 
-2. Download the latest `.zip` for **Windows** under the **Assets** section.
+2. Download the latest `.exe` for **Windows** under the **Assets** section.
 
 3. Extract it somewhere like:
 
    ```
-   C:\tools\obs-cmd\
+   C:\obs\
    ```
 
 4. Add that path to your system `PATH` environment variable (optional).

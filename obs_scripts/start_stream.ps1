@@ -1,17 +1,17 @@
 # Configuration
-$host = "localhost"
 $port = 4455
 $password = "YourPassword"  # Leave as "" if no password
 $obsCmd = "C:\obs\obs-cmd.exe"
+$url = "obsws://localhost:${port}/${password}"
 
 function IsStreaming {
-    $output = & $obsCmd --host $host --port $port --password $password stream status
+    $output = & $obsCmd --websocket ${url} streaming status
     return $output -match '"outputActive":\s*true'
 }
 
 # Stop stream
 Write-Host "Stopping stream..."
-& $obsCmd --host $host --port $port --password $password stream stop
+& $obsCmd --websocket ${url} streaming stop
 
 # Wait until the stream is confirmed stopped
 Write-Host "Waiting for stream to end..."
@@ -29,5 +29,5 @@ while (IsStreaming) {
 
 # Start stream
 Write-Host "Starting stream..."
-& $obsCmd --host $host --port $port --password $password stream start
+& $obsCmd --websocket ${url} streaming start
 
