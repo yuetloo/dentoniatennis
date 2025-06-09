@@ -27,6 +27,9 @@ while (IsStreaming) {
     }
 }
 
+Write-Host "Waiting 30s for youtube to switch over to new broadcast..."
+Start-Sleep -Seconds 30
+
 # Start stream
 Write-Host "Starting stream..."
 & $obsCmd --websocket ${url} streaming start
