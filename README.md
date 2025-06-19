@@ -78,6 +78,25 @@ Ensure OBS → **Tools → WebSocket Server Settings** is enabled (OBS 28+ inclu
   * Allow on-demand runs
   * If fails, restart every minute (max 3 retries)
 
+### Create Task “Reboot OBS Stream”
+
+* **General**
+
+  * Run whether user is logged on or not
+  * Run with highest privileges
+
+* **Triggers**
+
+  1. Startup
+
+* **Actions**
+
+  * Program: `powershell.exe`
+  * Arguments: `-ExecutionPolicy Bypass -File "C:\obs\reboot_stream.ps1"`
+
+* **Settings**
+
+  * Allow on-demand runs
 ---
 
 ## 🔐 YouTube OAuth Setup
