@@ -1,119 +1,105 @@
-# YouTube Live Stream Setup
+# 🎥 YouTube Live Stream Automation
 
-This repository contains powershell scripts used to automate YouTube Live Stream on a windows machine.
-
-1. reboot_stream.ps1 - a windows task scheduler will call this script to restart Reolink camera client, OBS, and the start_stream.ps1 script on machine reboot.
-
-2. start_stream.ps1 - a windows scheduler will call this script to restart the live stream daily at 12am and 12pm.
-
-
-In addition to Reolink client and OBS, the setup uses obs-cmd to automate the live stream via OBS websocket.
-
-The start_stream.ps1 uses Google API to create the YouTube broadcast before streaming to it.  The OAuth client id can be found from https://console.cloud.google.com
+Automate YouTube live streaming via OBS and Reolink camera on a Windows machine using PowerShell, OBS WebSocket, and YouTube API.
 
 ---
 
-## ✅ Download `obs-cmd`:
+## 📁 What’s Inside?
 
-1. Go to:
-   👉 [https://github.com/grigio/obs-cmd/releases](https://github.com/grigio/obs-cmd/releases)
+* **`reboot_stream.ps1`**
+  Script triggered at system startup by Task Scheduler. It:
 
-2. Download the latest `.exe` for **Windows** under the **Assets** section.
+  1. Restarts the Reolink camera client
+  2. Launches OBS
+  3. Calls `start_stream.ps1` to initiate the stream
 
-3. Extract it somewhere like:
+* **`start_stream.ps1`**
+  Scheduled to run at 12 AM and 12 PM daily. It:
 
-   ```
-   C:\obs\
-   ```
-
-4. Add that path to your system `PATH` environment variable (optional).
-
----
-
-## 🔧 Install/Enable obs-websocket
-
-Before `obs-cmd` will work:
-
-* OBS 28+ and later includes it **by default**, just enable it:
-
-  * OBS → `Tools` → `WebSocket Server Settings`
+  1. Uses the YouTube API (via OAuth2) to create a broadcast
+  2. Invokes `obs-cmd` (over OBS WebSocket) to begin streaming
 
 ---
 
+## 🔧 Requirements
 
-## ✅ Use Task Scheduler to start script
-
-### 1. **Open Task Scheduler**
-
-* Press `Win + R`, type `taskschd.msc`, hit Enter
-
-### 2. **Create a New Task**
-
-* Click **"Create Task..."** (not "Basic Task")
-
-### 3. **General Tab**
-
-* Name: `Restart OBS Stream`
-* Check: ✅ “Run whether user is logged on or not”
-* Check: ✅ “Run with highest privileges”
+1. **Reolink camera client**
+2. **OBS Studio** (v28+) with WebSocket plugin enabled
+3. **obs-cmd** command-line tool
+4. **Google Cloud OAuth credentials** to access YouTube API
 
 ---
 
-### 4. **Triggers Tab**
+## 📥 Installing obs-cmd
 
-Click “New\...” three times to add:
-
-* **Trigger 1: At system startup**
-
-  * Begin the task: `At startup`
-
-* **Trigger 2: At 12:00 AM**
-
-  * Begin the task: `On a schedule`
-  * Daily at 12:00 AM
-
-* **Trigger 3: At 12:00 PM**
-
-  * Same as above, but at 12:00 PM
-
-Each trigger should have:
-
-* ✅ Enabled
-* Repeat task = No (unless you want)
+1. Download the latest Windows `.exe` from the \[obs-cmd releases page] (https://github.com/grigio/obs-cmd/releases)
+2. Extract to a folder like `C:\obs\`
 
 ---
 
-### 5. **Actions Tab**
+## ⚙️ Enabling OBS WebSocket
 
-* Action: **Start a program**
-* Program/script:
-
-  ```powershell
-  powershell.exe
-  ```
-* Add arguments:
-
-  ```
-  -ExecutionPolicy Bypass -File "C:\obs\start_stream.ps1"
-  ```
+Ensure OBS → **Tools → WebSocket Server Settings** is enabled (OBS 28+ includes it by default) ([hubp.de][1]).
 
 ---
 
-### 6. **Conditions and Settings Tab**
+## ⏰ Task Scheduler Setup
 
-* You can leave Conditions unchecked for full control
-* Under **Settings** tab:
+### Create Task “Restart OBS Stream”
 
-  * ✅ Allow task to be run on demand
-  * ✅ Stop the task if it runs longer than: 1 hour (optional)
-  * ✅ If the task fails, restart every 1 min, up to 3 times (optional)
+* **General**
+
+  * Run whether user is logged on or not
+  * Run with highest privileges
+
+* **Triggers**
+
+  1. Daily at 12:00 AM
+  2. Daily at 12:00 PM
+
+* **Actions**
+
+  * Program: `powershell.exe`
+  * Arguments: `-ExecutionPolicy Bypass -File "C:\obs\start_stream.ps1"`
+
+* **Settings**
+
+  * Allow on-demand runs
+  * If fails, restart every minute (max 3 retries)
 
 ---
 
-## ✅ To Run Manually
+## 🛠️ Running It Manually
 
-You or any admin can:
+Open Task Scheduler → find "Restart OBS Stream" → right-click → **Run**.
 
-* Go to Task Scheduler
-* Right-click the task name → **Run**
+Make sure the Reolink client and OBS are started before running the "Restart OBS Stream".
+
+---
+
+## 🧭 How It Works
+
+* On **startup**, `reboot_stream.ps1` ensures services (Reolink, OBS) start cleanly, then hands off to `start_stream.ps1`.
+* `start_stream.ps1`:
+
+  1. Authenticates using your Google OAuth client
+  2. Creates a YouTube live broadcast
+  3. Uses `obs-cmd` to configure and start streaming to the new broadcast
+
+---
+
+## 🔐 YouTube OAuth Setup
+
+1. Visit [Google Cloud Console](https://console.cloud.google.com)
+2. Create OAuth 2.0 Client Credentials
+3. Assign scopes for `YouTube` live streaming, e.g. YouTube Data API
+4. Download `client_secret.json` and store securely
+
+---
+
+## ✅ Summary
+
+* **`reboot_stream.ps1`** — startup initialization
+* **`start_stream.ps1`** — scheduled live stream job
+* **OBS + obs-cmd + Reolink + Google OAuth** — orchestrated automation
 
