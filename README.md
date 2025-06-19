@@ -137,7 +137,7 @@ This issue sometimes occurs when OBS resets or does not load the custom stream s
 
 ### High CPU or Memory Usage by OBS
 
-If the machine is sluggish because OBS is consuming a lot of CPU or memory, try the following adjustments in OBS:
+If the live stream is lagging by more than 2 minutes and the OBS is consuming a lot of CPU or memory, try the following adjustments in OBS:
 
 1. **Lower Output Resolution**:
 
