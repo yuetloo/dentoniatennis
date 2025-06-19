@@ -1,4 +1,15 @@
-# Autostart YouTube live stream using obs-cmd
+# YouTube Live Stream Setup
+
+This repository contains powershell scripts used to automate YouTube Live Stream on a windows machine.
+
+1. reboot_stream.ps1 - a windows task scheduler will call this script to restart Reolink camera client, OBS, and the start_stream.ps1 script on machine reboot.
+
+2. start_stream.ps1 - a windows scheduler will call this script to restart the live stream daily at 12am and 12pm.
+
+
+In addition to Reolink client and OBS, the setup uses obs-cmd to automate the live stream via OBS websocket.
+
+The start_stream.ps1 uses Google API to create the YouTube broadcast before streaming to it.  The OAuth client id can be found from https://console.cloud.google.com
 
 ---
 
@@ -26,11 +37,6 @@ Before `obs-cmd` will work:
 * OBS 28+ and later includes it **by default**, just enable it:
 
   * OBS → `Tools` → `WebSocket Server Settings`
-
-Make sure:
-
-* The port (default: `4455`) is open
-* You’ve set a password (or disabled authentication)
 
 ---
 
