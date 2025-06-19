@@ -103,3 +103,24 @@ Make sure the Reolink client and OBS are started before running the "Restart OBS
 * **`start_stream.ps1`** — scheduled live stream job
 * **OBS + obs-cmd + Reolink + Google OAuth** — orchestrated automation
 
+---
+
+## 🛠️ Troubleshooting
+
+### OBS prompts with **"Manage Broadcast"** after running `start_stream.ps1`
+
+If OBS pops up the **"Manage Broadcast"** dialog instead of starting the stream automatically, check the following:
+
+1. **Verify stream settings** in OBS:
+
+   * Go to **Settings → Stream**
+   * Ensure **Service** is set to `Custom...`
+   * Confirm that the correct **Server** and **Stream Key** are filled in
+
+2. Even if everything *looks* correct:
+
+   * Click **OK** to save the settings again
+   * Then **restart the script** (`start_stream.ps1`)
+
+This issue sometimes occurs when OBS resets or does not load the custom stream settings correctly on first boot or after updates.
+
