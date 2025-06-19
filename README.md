@@ -135,3 +135,33 @@ If OBS pops up the **"Manage Broadcast"** dialog instead of starting the stream 
 
 This issue sometimes occurs when OBS resets or does not load the custom stream settings correctly on first boot or after updates.
 
+### High CPU or Memory Usage by OBS
+
+If the machine is sluggish because OBS is consuming a lot of CPU or memory, try the following adjustments in OBS:
+
+1. **Lower Output Resolution**:
+
+   * Go to **Settings → Video**
+   * Set both **Base (Canvas) Resolution** and **Output (Scaled) Resolution** to 1280×720 or 854×480
+
+2. **Reduce Frame Rate**:
+
+   * In **Settings → Video**, set **Common FPS Values** to 30 or 24
+
+3. **Use Software Encoding (x264)**:
+
+   * Go to **Settings → Output**
+   * Under the **Streaming** tab:
+
+     * Set **Output Mode** to `Advanced` (optional)
+     * Set **Encoder** to `x264`
+     * Use a low **CPU Usage Preset**, such as:
+
+       * `veryfast` (default and balanced)
+       * `superfast` or `ultrafast` if you're still seeing high CPU usage
+     * Optionally lower the **Bitrate** (e.g., 1000–2500 Kbps)
+
+6. **Minimize OBS Window**:
+
+   * Minimize the window to further reduce resource usage
+
