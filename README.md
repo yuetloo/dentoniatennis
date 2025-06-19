@@ -21,6 +21,17 @@ Automate YouTube live streaming via OBS and Reolink camera on a Windows machine 
 
 ---
 
+## 🧭 How It Works
+
+* On **startup**, `reboot_stream.ps1` ensures services (Reolink, OBS) start cleanly, then hands off to `start_stream.ps1`.
+* `start_stream.ps1`:
+
+  1. Authenticates using your Google OAuth client
+  2. Creates a YouTube live broadcast
+  3. Uses `obs-cmd` to configure and start streaming to the new broadcast
+
+---
+
 ## 🔧 Requirements
 
 1. **Reolink camera client**
@@ -69,25 +80,6 @@ Ensure OBS → **Tools → WebSocket Server Settings** is enabled (OBS 28+ inclu
 
 ---
 
-## 🛠️ Running It Manually
-
-Open Task Scheduler → find "Restart OBS Stream" → right-click → **Run**.
-
-Make sure the Reolink client and OBS are started before running the "Restart OBS Stream".
-
----
-
-## 🧭 How It Works
-
-* On **startup**, `reboot_stream.ps1` ensures services (Reolink, OBS) start cleanly, then hands off to `start_stream.ps1`.
-* `start_stream.ps1`:
-
-  1. Authenticates using your Google OAuth client
-  2. Creates a YouTube live broadcast
-  3. Uses `obs-cmd` to configure and start streaming to the new broadcast
-
----
-
 ## 🔐 YouTube OAuth Setup
 
 1. Visit [Google Cloud Console](https://console.cloud.google.com)
@@ -97,11 +89,11 @@ Make sure the Reolink client and OBS are started before running the "Restart OBS
 
 ---
 
-## ✅ Summary
+## 🛠️ Running It Manually
 
-* **`reboot_stream.ps1`** — startup initialization
-* **`start_stream.ps1`** — scheduled live stream job
-* **OBS + obs-cmd + Reolink + Google OAuth** — orchestrated automation
+Open Task Scheduler → find "Restart OBS Stream" → right-click → **Run**.
+
+Make sure the Reolink client and OBS are started before running the "Restart OBS Stream".
 
 ---
 
